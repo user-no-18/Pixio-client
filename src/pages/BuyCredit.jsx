@@ -5,7 +5,7 @@ import { AppContext } from "../contexts/AppContext";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import TestModePopup from "../components/TestModePopup";
 function BuyCredit() {
   const { user, backendUrl, loadcreditData, token, setShowLogin } =
     useContext(AppContext);
@@ -13,7 +13,7 @@ function BuyCredit() {
 
   const [loadingPlan, setLoadingPlan] = useState(null);
   const [scriptLoaded, setScriptLoaded] = useState(!!window.Razorpay);
-
+const [showPopup, setShowPopup] = useState(true);
   // Load Razorpay script
   const loadRazorpayScript = () =>
     new Promise((resolve, reject) => {
@@ -46,7 +46,7 @@ function BuyCredit() {
     
     if (!savedToken) return null;
     
-    // Return both formats for maximum compatibility
+    
     return {
       'Authorization': `Bearer ${savedToken}`,
       'token': savedToken,
@@ -55,14 +55,8 @@ function BuyCredit() {
   };
 
   const paymentRazorpay = async (planId) => {
-    console.log("=== Payment Initiated ===");
-    console.log("Plan ID:", planId);
-    console.log("Backend URL:", backendUrl);
-    console.log("User:", user);
-    console.log("Token from context:", token);
-    console.log("Token from localStorage:", localStorage.getItem("token"));
-
-    // Ensure user is logged in
+   
+    // Ensuring that user logged in
     if (!user) {
       toast.error("Please login first!");
       setShowLogin(true);
@@ -76,7 +70,7 @@ function BuyCredit() {
       return;
     }
 
-    // Ensure Razorpay SDK is loaded
+    //load razorpay SDK
     try {
       if (!window.Razorpay) {
         await loadRazorpayScript();
@@ -90,10 +84,7 @@ function BuyCredit() {
     setLoadingPlan(planId);
     try {
       const url = `${backendUrl}/api/user/pay-razor`;
-      console.log("POST to:", url);
-      console.log("Headers:", authHeaders);
-      console.log("Body:", { planId });
-
+      
       const { data } = await axios.post(
         url,
         { planId },
@@ -184,7 +175,8 @@ function BuyCredit() {
 
   return (
     <div className="min-h-[80vh] pt-14 mb-10 text-center">
-      <button className="border border-gray-400 px-10 py-2 rounded-full mb-6">
+       {showPopup && <TestModePopup onClose={() => setShowPopup(false)} />}
+      <button className="border border-gray-400 px-10 py-2 rounded-full mb-6  text-white">
         Our Plans
       </button>
       <h1 className="text-3xl font-medium mb-6 sm:mb-10 text-center">

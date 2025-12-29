@@ -10,24 +10,47 @@ import Login from './components/Login'
 import { AppContext } from './contexts/AppContext'
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import EnhanceImage from './pages/Image-upscalling'
+import RemoveBackground from './pages/Remove-background'
+import RemoveText from './pages/Remove-text'
+import UncropImage from './pages/Uncrop-obj'
+import ReplaceBG from './pages/Replace-bg'
+import Cleanup from './pages/Cleanup'
+import DocumentationSection from './components/Docs'
+
+
+
+
+
+
+
 const App = () => {
-  const{showLogin} = useContext(AppContext)
+  const { showLogin } = useContext(AppContext);
+
   return (
-    <div className='px-4 sm:px-10 md:px-14 lg:px-28 min-h-screen bg-gradient-to-b from-black to-pink-900
-'>
-      <ToastContainer position = 'bottom-right'/>
-      <Navbar/>
-      { showLogin &&  <Login/>}
+    <div className="min-h-screen bg-black">
+      <ToastContainer position="bottom-right" />
+      <Navbar />
+      {showLogin && <Login />}
+
       <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path="/result" element={<Result/>}/>
-        <Route path="/buy" element={<BuyCredit/>}/>
+        <Route path="/" element={<Home />} />
+        <Route path="/result" element={<Result />} />
+        <Route path="/enhance-image" element={<EnhanceImage />} />
+        <Route path="/remove-bg" element={<RemoveBackground />} />
+        <Route path="/remove-text" element={<RemoveText />} />
+        <Route path="/uncrop" element={<UncropImage />} />
+        <Route path="/replace-bg" element={<ReplaceBG />} />
+        <Route path="/cleanup" element={<Cleanup />} />
+        <Route path="/buy" element={<BuyCredit />} />
+        <Route path="/docs" element={<DocumentationSection />} />
       </Routes>
-     <Footer/>
-     
+
+      <Footer />
     </div>
-  )
-}
+  );
+};
+
 
 export default App
 // username - imagify
