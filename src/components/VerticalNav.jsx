@@ -19,11 +19,12 @@ const VerticalNav = ({ sidebarOpen, setSidebarOpen }) => {
 
   return (
     <aside
-      className={`fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 bg-black border-r border-white/10 z-40
-      transform transition-transform duration-300
-      ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
-      lg:translate-x-0`}
-    >
+  className={`fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 max-w-[85vw]
+  bg-black border-r border-white/10 z-40
+  transform transition-transform duration-300
+  ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
+  lg:translate-x-0`}
+>
       <div className="p-5 border-b border-white/10 font-semibold">
         AI Tools
       </div>

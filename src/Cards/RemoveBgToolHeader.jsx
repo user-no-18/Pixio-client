@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../contexts/AppContext";
 import VerticalNav from "../components/VerticalNav";
-import { Menu } from "lucide-react";
+import { Menu, Zap, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const RemoveBackground = () => {
@@ -10,11 +10,14 @@ const RemoveBackground = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+
+      {/* subtle aurora like Cleanup */}
+      <div className="absolute top-0 left-0 w-[600px] h-[400px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none -z-10" />
 
       <button
         onClick={() => setSidebarOpen(true)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white/10 rounded"
+        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white/10 rounded-full border border-white/20"
       >
         <Menu size={20} />
       </button>
@@ -30,143 +33,216 @@ const RemoveBackground = () => {
 
       <main className="pt-16 lg:ml-64 min-h-screen">
 
-        <section className="px-6 py-20 max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 items-center">
+        {/* HERO */}
+        <section className="px-6 py-20 max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-14 items-center">
+            <div>
+              <h1 className="text-5xl lg:text-7xl font-black tracking-tighter leading-tight">
+                Remove <span className="text-blue-500">Background.</span>
+              </h1>
 
-          <div>
-            <h1 className="mt-2 text-4xl lg:text-5xl font-black">
-              Remove Background
-            </h1>
+              <p className="mt-8 text-white/50 max-w-xl leading-relaxed text-xl lg:text-2xl">
+                Automatically separate subjects from backgrounds using
+                high-precision AI. Get clean, transparent images without
+                manual editing.
+              </p>
 
-            <p className="mt-6 text-white/70 max-w-xl leading-relaxed text-2xl">
-              Remove Background is an AI-powered tool that automatically separates
-              subjects from their backgrounds with high precision. It enables
-              clean, transparent, or custom-background images without manual
-              editing or complex workflows.
+              <div className="mt-12 relative group inline-block">
+                <div className="absolute -inset-4 bg-blue-600/20 blur-3xl rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
+
+                <div className="relative p-[1.5px] overflow-hidden rounded-full bg-white/10 group-hover:bg-transparent transition-colors duration-500">
+                  <div className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#000000_0%,#000000_40%,#3b82f6_50%,#000000_60%,#000000_100%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  <button
+                    onClick={() =>
+                      user ? navigate("/remove-bg") : setShowLogin(true)
+                    }
+                    className="relative z-10 px-10 py-4 bg-[#080808] hover:bg-black text-white rounded-full flex items-center gap-3 text-sm font-black uppercase tracking-[0.25em] transition-all duration-300 group-hover:text-blue-400"
+                  >
+                    <Zap
+                      size={18}
+                      className="text-blue-500 group-hover:animate-bounce"
+                    />
+                    <span>Start Removing</span>
+                    <ArrowRight
+                      size={18}
+                      className="text-white/30 group-hover:text-blue-400 group-hover:translate-x-2 transition-all duration-300"
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 to-transparent blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+              <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                <video
+                  src="videos/remove-background-demo.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover opacity-80"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* HOW IT WORKS */}
+        <section className="px-6 pb-32 max-w-7xl mx-auto border-t border-white/5 pt-24">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white/90 mb-4">
+              How It Works
+            </h2>
+            <p className="text-white/40 text-lg max-w-2xl mx-auto">
+              Professional-grade background removal in three simple steps
             </p>
           </div>
 
-          <div className="w-full max-w-2xl aspect-video rounded-md overflow-hidden border border-white/10">
-            <video
-              src="videos/remove-background-demo.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover"
-            />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {[
+              {
+                step: "01",
+                title: "Upload",
+                desc: "Drop your subject image.",
+                gradient: "from-blue-600/5 to-transparent"
+              },
+              {
+                step: "02",
+                title: "AI Processing",
+                desc: "AI identifies main subject and removes background pixels.",
+                gradient: "from-purple-600/5 to-transparent"
+              },
+              {
+                step: "03",
+                title: "Download",
+                desc: "High-quality PNG export with transparent background.",
+                gradient: "from-cyan-600/5 to-transparent"
+              },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className={`relative bg-gradient-to-br ${item.gradient} backdrop-blur-sm border border-white/10 p-8 rounded-3xl hover:border-blue-500/30 transition-all duration-500 group overflow-hidden`}
+              >
+                {/* Subtle corner glow */}
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-500/5 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10">
+                  <span className="inline-block px-3 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 font-black text-xs tracking-widest mb-4">
+                    {item.step}
+                  </span>
+                  <h3 className="font-bold text-xl mt-3 mb-3 group-hover:text-blue-400 transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-white/50 text-sm leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+
+                {/* Bottom accent line */}
+                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+            ))}
           </div>
 
-        </section>
-
-        <section className="px-6 pb-32 max-w-6xl mx-auto">
-
-          <h2 className="mt-12 font-semibold text-3xl">
-            How Remove Background works
+          {/* EXAMPLES */}
+          <h2 className="mt-32 text-3xl font-black tracking-wide text-white/90 mb-16 text-center">
+            Results
           </h2>
 
-          <div className="mt-10 grid gap-6">
-
-            <div className="border border-white/15 rounded-lg p-6">
-              <h3 className="font-semibold text-lg">1. Upload your image</h3>
-              <p className="mt-2 text-white/70 leading-relaxed">
-                Upload any image containing a subject such as a person, product,
-                or object. The tool supports high-resolution images.
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="space-y-3 group">
+              <p className="text-xs font-bold text-white/40 uppercase tracking-widest text-center">
+                Original Image
               </p>
+              <div className="relative overflow-hidden rounded-2xl border border-white/10">
+                <img
+                  src="examples/remove-bg-input.png"
+                  alt="Input"
+                  className="w-full grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+                />
+              </div>
             </div>
-
-            <div className="border border-white/15 rounded-lg p-6">
-              <h3 className="font-semibold text-lg">2. Automatic subject detection</h3>
-              <p className="mt-2 text-white/70 leading-relaxed">
-                The AI automatically detects the primary subject and separates it
-                from the background with pixel-level accuracy.
+            <div className="space-y-3 group">
+              <p className="text-xs font-bold text-white/40 uppercase tracking-widest text-center">
+                AI Detection
               </p>
+              <div className="relative overflow-hidden rounded-2xl border border-white/10">
+                <img
+                  src="examples/remove-bg-output.jpg"
+                  className="w-full transition-all duration-500 group-hover:scale-105"
+                  alt="Processing"
+                />
+              </div>
             </div>
-
-            <div className="border border-white/15 rounded-lg p-6">
-              <h3 className="font-semibold text-lg">3. Background removal</h3>
-              <p className="mt-2 text-white/70 leading-relaxed">
-                Background pixels are removed cleanly while preserving fine edges
-                such as hair, shadows, and object contours.
+            <div className="space-y-3 group">
+              <p className="text-xs font-bold text-blue-400 uppercase tracking-widest text-center">
+                Final Output
               </p>
+              <div className="relative overflow-hidden rounded-2xl border border-blue-500/30 shadow-xl shadow-blue-500/10">
+                <img
+                  src="examples/remove-bg-output.jpg"
+                  alt="Output"
+                  className="w-full transition-all duration-500 group-hover:scale-105"
+                />
+              </div>
             </div>
-
-            <div className="border border-white/15 rounded-lg p-6">
-              <h3 className="font-semibold text-lg">4. Preview result</h3>
-              <p className="mt-2 text-white/70 leading-relaxed">
-                Instantly preview the output image with a transparent or clean
-                background.
-              </p>
-            </div>
-
-            <div className="border border-white/15 rounded-lg p-6">
-              <h3 className="font-semibold text-lg">5. Download final image</h3>
-              <p className="mt-2 text-white/70 leading-relaxed">
-                Download the processed image in high quality, ready for design,
-                e-commerce, or marketing use.
-              </p>
-            </div>
-
           </div>
 
-          <h2 className="mt-20 text-2xl font-semibold">
-            Example results
-          </h2>
-
-          <div className="mt-10 grid gap-10">
-
-            <div className="w-full rounded-lg overflow-hidden border border-white/10">
-              <img
-                src="examples/remove-bg-output.jpg"
-                alt="Remove background input"
-                className="w-full object-cover"
-              />
-            </div>
-
-            <div className="w-full rounded-lg overflow-hidden border border-white/10">
-              <img
-                src="examples/remove-bg-input.png"
-                alt="Remove background output"
-                className="w-full object-cover"
-              />
-            </div>
-
-          </div>
-
-          <h2 className="mt-20 text-xl font-semibold">
+          {/* USE CASES */}
+          <h2 className="mt-32 text-3xl font-black tracking-wide text-white/90 mb-16 text-center">
             Common use cases
           </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="space-y-3 group">
+              <p className="text-xs font-bold text-white/40 uppercase tracking-widest text-center">
+                E-Commerce
+              </p>
+              <div className="relative overflow-hidden rounded-2xl border border-white/10 p-6">
+                <p className="text-white/70 leading-relaxed">
+                  • Product photography & e-commerce
+                </p>
+              </div>
+            </div>
+            <div className="space-y-3 group">
+              <p className="text-xs font-bold text-white/40 uppercase tracking-widest text-center">
+                Creative Projects
+              </p>
+              <div className="relative overflow-hidden rounded-2xl border border-white/10 p-6">
+                <p className="text-white/70 leading-relaxed">
+                  • Marketing creatives<br/>
+                  • Profile & portfolio images<br/>
+                  • Design and compositing
+                </p>
+              </div>
+            </div>
+            <div className="space-y-3 group">
+              <p className="text-xs font-bold text-blue-400 uppercase tracking-widest text-center">
+                Professional Use
+              </p>
+              <div className="relative overflow-hidden rounded-2xl border border-blue-500/30 shadow-xl shadow-blue-500/10 p-6">
+                <p className="text-white/70 leading-relaxed">
+                  • Visual consistency across assets
+                </p>
+              </div>
+            </div>
+          </div>
 
-          <ul className="mt-6 space-y-3 text-white/70">
-            <li>• Creating transparent product images</li>
-            <li>• Preparing assets for e-commerce platforms</li>
-            <li>• Designing marketing and promotional materials</li>
-            <li>• Isolating subjects for graphic design</li>
-            <li>• Improving visual consistency across content</li>
-          </ul>
-
-          {user ? (
+          {/* FOOTER CTA */}
+          <div className="mt-28 flex flex-col md:flex-row items-center justify-center gap-6">
             <button
-              onClick={() => navigate("/remove-bg")}
-              className="mt-14 px-8 py-3 bg-white text-black rounded font-semibold hover:bg-white/90 transition"
+              onClick={() => (user ? navigate("/remove-bg") : setShowLogin(true))}
+              className="px-12 py-5 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-full font-black text-sm uppercase tracking-widest hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-500 hover:scale-105"
             >
-              Use Remove Background
+              Start Creating Now
             </button>
-          ) : (
             <button
-              onClick={() => setShowLogin(true)}
-              className="mt-14 px-8 py-3 bg-white text-black rounded font-semibold hover:bg-white/90 transition"
+              onClick={() => navigate("/docs")}
+              className="px-10 py-5 border border-white/20 text-white/60 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white/5 hover:text-white hover:border-white/40 transition-all duration-300"
             >
-              Sign in to start
+              View Documentation
             </button>
-          )}
-
-          <button
-            onClick={() => navigate("/docs")}
-            className="mt-6 ml-1 px-6 py-3 border border-white/30 text-white rounded font-medium hover:bg-white/5 transition"
-          >
-            Read Documentation
-          </button>
-
+          </div>
         </section>
       </main>
     </div>

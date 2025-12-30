@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../contexts/AppContext";
 import VerticalNav from "../components/VerticalNav";
-import { Menu } from "lucide-react";
+import { Menu, Zap, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const PromptToImage = () => {
@@ -10,11 +10,13 @@ const PromptToImage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      {/* Subtle Blue Aurora Background */}
+      <div className="absolute top-0 left-0 w-[600px] h-[400px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none -z-10" />
 
       <button
         onClick={() => setSidebarOpen(true)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white/10 rounded"
+        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white/10 rounded-full border border-white/20"
       >
         <Menu size={20} />
       </button>
@@ -29,114 +31,174 @@ const PromptToImage = () => {
       )}
 
       <main className="pt-16 lg:ml-64 min-h-screen">
+        <section className="px-6 py-20 max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-14 items-center">
+            <div>
+              <h1 className="text-5xl lg:text-7xl font-black tracking-tighter leading-tight">
+                Image Generator <span className="text-blue-500">AI.</span>
+              </h1>
+              <p className="mt-8 text-white/50 max-w-xl leading-relaxed text-xl lg:text-2xl">
+                Prompt to Image is an AI-powered creative tool that transforms written
+                descriptions into high-quality images. Simply describe what you want
+                to see, and the AI generates visually rich and detailed imagery
+                within seconds.
+              </p>
 
-        <section className="px-6 py-20 max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 items-center">
+              {/* Start Using Button */}
+              <div className="mt-12 relative group inline-block">
+                <div className="absolute -inset-4 bg-blue-600/20 blur-3xl rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
 
-          <div>
-            <h1 className="mt-2 text-4xl lg:text-5xl font-black">
-              Prompt to Image
-            </h1>
+                <div className="relative p-[1.5px] overflow-hidden rounded-full bg-white/10 group-hover:bg-transparent transition-colors duration-500">
+                  <div className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#000000_0%,#000000_40%,#3b82f6_50%,#000000_60%,#000000_100%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-            <p className="mt-6 text-white/70 max-w-xl leading-relaxed text-2xl">
-              Prompt to Image is an AI-powered creative tool that transforms written
-              descriptions into high-quality images. Simply describe what you want
-              to see, and the AI generates visually rich and detailed imagery
-              within seconds.
+                  <button
+                    onClick={() =>
+                      user ? navigate("/result") : setShowLogin(true)
+                    }
+                    className="relative z-10 px-10 py-4 bg-[#080808] hover:bg-black text-white rounded-full flex items-center gap-3 text-sm font-black uppercase tracking-[0.25em] transition-all duration-300 group-hover:text-blue-400"
+                  >
+                    <Zap
+                      size={18}
+                      className="text-blue-500 group-hover:animate-bounce"
+                    />
+                    <span>Start Using Now</span>
+                    <ArrowRight
+                      size={18}
+                      className="text-white/30 group-hover:text-blue-400 group-hover:translate-x-2 transition-all duration-300"
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 to-transparent blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+              <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                <video
+                  src="videos/prompt-to-image-demo.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover opacity-80"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-6 pb-32 max-w-7xl mx-auto border-t border-white/5 pt-24">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white/90 mb-4">
+              How It Works
+            </h2>
+            <p className="text-white/40 text-lg max-w-2xl mx-auto">
+              Professional-grade image generation in simple steps
             </p>
           </div>
 
-          <div className="w-full max-w-2xl aspect-video rounded-md overflow-hidden border border-white/10">
-            <video
-              src="videos/prompt-to-image-demo.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover"
-            />
-          </div>
+       <div className="flex justify-center">
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl w-full">
+    {[
+      {
+        step: "01",
+        title: "Enter your prompt",
+        desc: "Provide a clear text description of the image you want to generate.",
+        gradient: "from-blue-600/5 to-transparent",
+      },
+      {
+        step: "02",
+        title: "Generate instantly",
+        desc: "Our AI processes your input and generates a high-quality image in seconds.",
+        gradient: "from-purple-600/5 to-transparent",
+      },
+      {
+        step: "03",
+        title: "Download result",
+        desc: "Download the generated image in high resolution for personal or professional use.",
+        gradient: "from-cyan-600/5 to-transparent",
+      },
+    ].map((item, i) => (
+      <div
+        key={i}
+        className={`relative bg-gradient-to-br ${item.gradient} backdrop-blur-sm border border-white/10 p-8 rounded-3xl hover:border-blue-500/30 transition-all duration-500 group overflow-hidden text-center`}
+      >
+        {/* Corner accent */}
+        <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-500/5 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-        </section>
+        <div className="relative z-10 flex flex-col items-center">
+          <span className="px-3 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 font-black text-xs tracking-widest mb-4">
+            {item.step}
+          </span>
 
-        <section className="px-6 pb-32 max-w-6xl mx-auto">
+          <h3 className="font-bold text-xl mb-3 group-hover:text-blue-400 transition-colors">
+            {item.title}
+          </h3>
 
-          <h2 className="mt-12 font-semibold text-3xl">
-            How Prompt to Image works
-          </h2>
+          <p className="text-white/50 text-sm leading-relaxed max-w-xs">
+            {item.desc}
+          </p>
+        </div>
 
-          <div className="mt-10 grid gap-6">
+        {/* Bottom accent */}
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      </div>
+    ))}
+  </div>
+</div>
 
-            <div className="border border-white/15 rounded-lg p-6">
-              <h3 className="font-semibold text-lg">1. Write a prompt</h3>
-              <p className="mt-2 text-white/70 leading-relaxed">
-                Describe the image you want to generate using clear and detailed
-                natural language.
-              </p>
-            </div>
-
-            <div className="border border-white/15 rounded-lg p-6">
-              <h3 className="font-semibold text-lg">2. Define visual intent</h3>
-              <p className="mt-2 text-white/70 leading-relaxed">
-                Specify style, mood, lighting, composition, or artistic direction
-                to guide the AI toward your desired output.
-              </p>
-            </div>
-
-            <div className="border border-white/15 rounded-lg p-6">
-              <h3 className="font-semibold text-lg">3. Generate image</h3>
-              <p className="mt-2 text-white/70 leading-relaxed">
-                The AI interprets your prompt and produces a unique image based on
-                semantic understanding and visual synthesis.
-              </p>
-            </div>
-
-           
-
-            <div className="border border-white/15 rounded-lg p-6">
-              <h3 className="font-semibold text-lg">5. Download final image</h3>
-              <p className="mt-2 text-white/70 leading-relaxed">
-                Export the generated image in high resolution for creative,
-                marketing, or professional use.
-              </p>
-            </div>
-
-          </div>
-
-          <h2 className="mt-20 text-xl font-semibold">
+          <h2 className="mt-32 text-3xl font-black tracking-wide text-white/90 mb-16 text-center">
             Common use cases
           </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="space-y-3 group">
+              <p className="text-xs font-bold text-white/40 uppercase tracking-widest text-center">
+                Creative Applications
+              </p>
+              <div className="relative overflow-hidden rounded-2xl border border-white/10 p-6">
+                <p className="text-white/70 leading-relaxed">
+                  • Concept art and visual ideation
+                </p>
+              </div>
+            </div>
+            <div className="space-y-3 group">
+              <p className="text-xs font-bold text-white/40 uppercase tracking-widest text-center">
+                Business Use
+              </p>
+              <div className="relative overflow-hidden rounded-2xl border border-white/10 p-6">
+                <p className="text-white/70 leading-relaxed">
+                  • Marketing and advertising creatives<br/>
+                  • Social media and content illustrations<br/>
+                  • Product mockups and design exploration
+                </p>
+              </div>
+            </div>
+            <div className="space-y-3 group">
+              <p className="text-xs font-bold text-blue-400 uppercase tracking-widest text-center">
+                Experimentation
+              </p>
+              <div className="relative overflow-hidden rounded-2xl border border-blue-500/30 shadow-xl shadow-blue-500/10 p-6">
+                <p className="text-white/70 leading-relaxed">
+                  • Creative experimentation and storytelling
+                </p>
+              </div>
+            </div>
+          </div>
 
-          <ul className="mt-6 space-y-3 text-white/70">
-            <li>• Concept art and visual ideation</li>
-            <li>• Marketing and advertising creatives</li>
-            <li>• Social media and content illustrations</li>
-            <li>• Product mockups and design exploration</li>
-            <li>• Creative experimentation and storytelling</li>
-          </ul>
-
-          {user ? (
+          <div className="mt-28 flex flex-col md:flex-row items-center justify-center gap-6">
             <button
-              onClick={() => navigate("/result")}
-              className="mt-14 px-8 py-3 bg-white text-black rounded font-semibold hover:bg-white/90 transition"
+              onClick={() => (user ? navigate("/result") : setShowLogin(true))}
+              className="px-12 py-5 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-full font-black text-sm uppercase tracking-widest hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-500 hover:scale-105"
             >
-              Use Prompt to Image
+              Start Creating Now
             </button>
-          ) : (
             <button
-              onClick={() => setShowLogin(true)}
-              className="mt-14 px-8 py-3 bg-white text-black rounded font-semibold hover:bg-white/90 transition"
+              onClick={() => navigate("/docs")}
+              className="px-10 py-5 border border-white/20 text-white/60 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white/5 hover:text-white hover:border-white/40 transition-all duration-300"
             >
-              Sign in to start
+              View Documentation
             </button>
-          )}
-
-          <button
-            onClick={() => navigate("/docs")}
-            className="mt-6 ml-1 px-6 py-3 border border-white/30 text-white rounded font-medium hover:bg-white/5 transition"
-          >
-            Read Documentation
-          </button>
-
+          </div>
         </section>
       </main>
     </div>

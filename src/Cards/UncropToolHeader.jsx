@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../contexts/AppContext";
 import VerticalNav from "../components/VerticalNav";
-import { Menu } from "lucide-react";
+import { Menu, Zap, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Uncrop = () => {
@@ -10,11 +10,13 @@ const Uncrop = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      {/* Subtle Blue Aurora Background */}
+      <div className="absolute top-0 left-0 w-[600px] h-[400px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none -z-10" />
 
       <button
         onClick={() => setSidebarOpen(true)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white/10 rounded"
+        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white/10 rounded-full border border-white/20"
       >
         <Menu size={20} />
       </button>
@@ -29,123 +31,173 @@ const Uncrop = () => {
       )}
 
       <main className="pt-16 lg:ml-64 min-h-screen">
+        <section className="px-6 py-20 max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-14 items-center">
+            <div>
+              <h1 className="text-5xl lg:text-7xl font-black tracking-tighter leading-tight">
+                Uncrop <span className="text-blue-500">AI.</span>
+              </h1>
+              <p className="mt-8 text-white/50 max-w-xl leading-relaxed text-xl lg:text-2xl">
+                Uncrop is an AI-powered image expansion tool that intelligently extends
+                the boundaries of an image beyond its original frame while preserving
+                visual consistency, structure, and realism.
+              </p>
 
-        <section className="px-6 py-20 max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 items-center">
+              {/* Start Using Button */}
+              <div className="mt-12 relative group inline-block">
+                <div className="absolute -inset-4 bg-blue-600/20 blur-3xl rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-700" />
 
-          <div>
-            <h1 className="mt-2 text-4xl lg:text-5xl font-black">
-              Uncrop
-            </h1>
+                <div className="relative p-[1.5px] overflow-hidden rounded-full bg-white/10 group-hover:bg-transparent transition-colors duration-500">
+                  <div className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#000000_0%,#000000_40%,#3b82f6_50%,#000000_60%,#000000_100%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-            <p className="mt-6 text-white/70 max-w-xl leading-relaxed text-2xl">
-              Uncrop is an AI-powered image expansion tool that intelligently extends
-              the boundaries of an image beyond its original frame while preserving
-              visual consistency, structure, and realism.
+                  <button
+                    onClick={() =>
+                      user ? navigate("/uncrop") : setShowLogin(true)
+                    }
+                    className="relative z-10 px-10 py-4 bg-[#080808] hover:bg-black text-white rounded-full flex items-center gap-3 text-sm font-black uppercase tracking-[0.25em] transition-all duration-300 group-hover:text-blue-400"
+                  >
+                    <Zap
+                      size={18}
+                      className="text-blue-500 group-hover:animate-bounce"
+                    />
+                    <span>Start Using Now</span>
+                    <ArrowRight
+                      size={18}
+                      className="text-white/30 group-hover:text-blue-400 group-hover:translate-x-2 transition-all duration-300"
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 to-transparent blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+              <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                <video
+                  src="videos/uncrop-demo.webm"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover opacity-80"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-6 pb-32 max-w-7xl mx-auto border-t border-white/5 pt-24">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl lg:text-5xl font-black tracking-tight text-white/90 mb-4">
+              How It Works
+            </h2>
+            <p className="text-white/40 text-lg max-w-2xl mx-auto">
+              Professional-grade image expansion in three simple steps
             </p>
           </div>
 
-          <div className="w-full max-w-2xl aspect-video rounded-md overflow-hidden border border-white/10">
-            <video
-              src="videos/uncrop-demo.webm"
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover"
-            />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {[
+              {
+                step: "01",
+                title: "Upload your image",
+                desc: "Upload an image that you want to expand beyond its original boundaries without cropping important content.",
+                gradient: "from-blue-600/5 to-transparent",
+              },
+              {
+                step: "02",
+                title: "AI image extrapolation",
+                desc: "Select the sides or aspect ratio where you want the image to be extended. The AI generates new content that seamlessly blends with the original image using contextual understanding.",
+                gradient: "from-purple-600/5 to-transparent",
+              },
+              {
+                step: "03",
+                title: "Export final image",
+                desc: "Download the expanded image in high resolution, ready for creative or professional use.",
+                gradient: "from-cyan-600/5 to-transparent",
+              },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className={`relative bg-gradient-to-br ${item.gradient} backdrop-blur-sm border border-white/10 p-8 rounded-3xl hover:border-blue-500/30 transition-all duration-500 group overflow-hidden`}
+              >
+                {/* Subtle corner gradient */}
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-500/5 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                <div className="relative z-10">
+                  <span className="inline-block px-3 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 font-black text-xs tracking-widest mb-4">
+                    {item.step}
+                  </span>
+                  <h3 className="font-bold text-xl mt-3 mb-3 group-hover:text-blue-400 transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="text-white/50 text-sm leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+
+                {/* Bottom accent line */}
+                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+            ))}
           </div>
 
-        </section>
-
-        <section className="px-6 pb-32 max-w-6xl mx-auto">
-
-          <h2 className="mt-12 font-semibold text-3xl">
-            How Uncrop works
-          </h2>
-
-          <div className="mt-10 grid gap-6">
-
-            <div className="border border-white/15 rounded-lg p-6">
-              <h3 className="font-semibold text-lg">1. Upload your image</h3>
-              <p className="mt-2 text-white/70 leading-relaxed">
-                Upload an image that you want to expand beyond its original
-                boundaries without cropping important content.
-              </p>
-            </div>
-
-            <div className="border border-white/15 rounded-lg p-6">
-              <h3 className="font-semibold text-lg">2. Choose expansion direction</h3>
-              <p className="mt-2 text-white/70 leading-relaxed">
-                Select the sides or aspect ratio where you want the image
-                to be extended.
-              </p>
-            </div>
-
-            <div className="border border-white/15 rounded-lg p-6">
-              <h3 className="font-semibold text-lg">3. AI image extrapolation</h3>
-              <p className="mt-2 text-white/70 leading-relaxed">
-                The AI generates new content that seamlessly blends with the
-                original image using contextual understanding.
-              </p>
-            </div>
-
-            <div className="border border-white/15 rounded-lg p-6">
-              <h3 className="font-semibold text-lg">4. Review the expanded image</h3>
-              <p className="mt-2 text-white/70 leading-relaxed">
-                Instantly preview the uncropped result and regenerate if
-                further refinement is needed.
-              </p>
-            </div>
-
-            <div className="border border-white/15 rounded-lg p-6">
-              <h3 className="font-semibold text-lg">5. Export final image</h3>
-              <p className="mt-2 text-white/70 leading-relaxed">
-                Download the expanded image in high resolution, ready for
-                creative or professional use.
-              </p>
-            </div>
-
-          </div>
-
-          <h2 className="mt-20 text-xl font-semibold">
+          <h2 className="mt-32 text-3xl font-black tracking-wide text-white/90 mb-16 text-center">
             Common use cases
           </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="space-y-3 group">
+              <p className="text-xs font-bold text-white/40 uppercase tracking-widest text-center">
+                Aspect Ratio Fix
+              </p>
+              <div className="relative overflow-hidden rounded-2xl border border-white/10 p-6">
+                <p className="text-white/70 leading-relaxed">
+                  • Expanding images to fit new aspect ratios<br/>
+                  • Restoring cropped compositions
+                </p>
+              </div>
+            </div>
+            <div className="space-y-3 group">
+              <p className="text-xs font-bold text-white/40 uppercase tracking-widest text-center">
+                Design & Marketing
+              </p>
+              <div className="relative overflow-hidden rounded-2xl border border-white/10 p-6">
+                <p className="text-white/70 leading-relaxed">
+                  • Preparing visuals for banners and ads<br/>
+                  • Extending backgrounds for design layouts
+                </p>
+              </div>
+            </div>
+            <div className="space-y-3 group">
+              <p className="text-xs font-bold text-blue-400 uppercase tracking-widest text-center">
+                Creative Projects
+              </p>
+              <div className="relative overflow-hidden rounded-2xl border border-blue-500/30 shadow-xl shadow-blue-500/10 p-6">
+                <p className="text-white/70 leading-relaxed">
+                  • Creative image storytelling
+                </p>
+              </div>
+            </div>
+          </div>
 
-          <ul className="mt-6 space-y-3 text-white/70">
-            <li>• Expanding images to fit new aspect ratios</li>
-            <li>• Restoring cropped compositions</li>
-            <li>• Preparing visuals for banners and ads</li>
-            <li>• Extending backgrounds for design layouts</li>
-            <li>• Creative image storytelling</li>
-          </ul>
-
-          {user ? (
+          <div className="mt-28 flex flex-col md:flex-row items-center justify-center gap-6">
             <button
-              onClick={() => navigate("/uncrop")}
-              className="mt-14 px-8 py-3 bg-white text-black rounded font-semibold hover:bg-white/90 transition"
+              onClick={() => (user ? navigate("/uncrop") : setShowLogin(true))}
+              className="px-12 py-5 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-full font-black text-sm uppercase tracking-widest hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-500 hover:scale-105"
             >
-              Use Uncrop
+              Start Creating Now
             </button>
-          ) : (
             <button
-              onClick={() => setShowLogin(true)}
-              className="mt-14 px-8 py-3 bg-white text-black rounded font-semibold hover:bg-white/90 transition"
+              onClick={() => navigate("/docs")}
+              className="px-10 py-5 border border-white/20 text-white/60 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white/5 hover:text-white hover:border-white/40 transition-all duration-300"
             >
-              Sign in to start
+              View Documentation
             </button>
-          )}
-
-          <button
-            onClick={() => navigate("/docs")}
-            className="mt-6 ml-1 px-6 py-3 border border-white/30 text-white rounded font-medium hover:bg-white/5 transition"
-          >
-            Read Documentation
-          </button>
-
+          </div>
         </section>
       </main>
     </div>
   );
 };
 
-export default Uncrop
+export default Uncrop;
