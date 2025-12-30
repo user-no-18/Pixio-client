@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../contexts/AppContext";
-
+import MobileBackArrow from "../components/MobileArrow";
 function EnhanceImage() {
   const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -54,7 +54,10 @@ function EnhanceImage() {
         }
       `}</style>
 
+      <MobileBackArrow />
+
       <div className="flex flex-col min-h-[90vh] items-center justify-center p-4">
+        
         <h1 className="text-3xl font-bold mb-8 text-white">Enhance Image</h1>
 
         {!resultImage && !loading && (

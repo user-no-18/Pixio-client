@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import TestModePopup from "../components/TestModePopup";
 import { motion } from "framer-motion";
 import Aurora from "../components/Aurora";
+import { ArrowLeft } from "lucide-react";
 
 
 function BuyCredit() {
@@ -176,82 +177,119 @@ function BuyCredit() {
     rzp.open();
   };
 
-  return (
-    <div className="relative min-h-screen pt-20 pb-24 text-center overflow-hidden">
-      {/* BACKGROUND EFFECTS - Fixed positioning to cover entire viewport */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        
-        <Aurora
-          colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
-          blend={0.5}
-          amplitude={1.0}
-          speed={0.5}
-        />
-      </div>
+ return (
+  <div className="relative min-h-screen pt-20 pb-24 text-center overflow-hidden">
+    
+    {/* Mobile back arrow */}
+    <button
+      onClick={() => navigate(-1)}
+      aria-label="Go back"
+      className="
+        sm:hidden
+        fixed
+        top-[calc(env(safe-area-inset-top)+12px)]
+        left-3
+        z-[100]
+        p-2.5
+        rounded-full
+        bg-black/70
+        backdrop-blur-md
+       
+      
+        text-white
+        shadow-lg
+        active:scale-95
+        transition
+      "
+    >
+      <ArrowLeft size={22} strokeWidth={2.2} />
+    </button>
 
-      {showPopup && <TestModePopup onClose={() => setShowPopup(false)} />}
+    {/* Aurora background */}
+    <div className="fixed inset-0 pointer-events-none z-0">
+      <Aurora
+        colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
+        blend={0.5}
+        amplitude={1.0}
+        speed={0.5}
+      />
+    </div>
 
-      {/* FOREGROUND CONTENT */}
-      <div className="relative z-10 px-4">
-        <motion.button
-          className="border border-white/40 px-10 py-2 rounded-full mb-6 text-white hover:bg-white/10 transition"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Our Plans
-        </motion.button>
+    {showPopup && <TestModePopup onClose={() => setShowPopup(false)} />}
 
-        <motion.h1
-          className="text-3xl font-medium mb-10 sm:mb-12 text-white"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          Choose the plan
-        </motion.h1>
+    <div className="relative z-10 px-4">
+      <motion.button
+        className="border border-white/40 px-10 py-2 rounded-full mb-6 text-white hover:bg-white/10 transition"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        Our Plans
+      </motion.button>
 
-        <div className="flex flex-wrap gap-6 justify-center text-left max-w-4xl mx-auto mb-16">
-          {plans.map((item, index) => (
-            <motion.div
-              key={index}
-              className="bg-black/90 border border-white/20 rounded-xl py-12 px-8 text-white shadow-md backdrop-blur-sm w-[300px] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 10px 25px rgba(255,255,255,0.2)",
-              }}
+      <motion.h1
+        className="text-3xl font-medium mb-10 sm:mb-12 text-white"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        Choose the plan
+      </motion.h1>
+
+      <div className="flex flex-wrap gap-6 justify-center text-left max-w-4xl mx-auto mb-16">
+        {plans.map((item, index) => (
+          <motion.div
+            key={index}
+            className="
+              bg-black/90
+              border border-white/20
+              rounded-xl
+              py-12 px-8
+              text-white
+              shadow-md
+              backdrop-blur-sm
+              w-[300px]
+              sm:w-[calc(50%-12px)]
+              lg:w-[calc(33.333%-16px)]
+              flex flex-col
+            "
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1, duration: 0.5 }}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 10px 25px rgba(255,255,255,0.2)",
+            }}
+          >
+            <img width={40} src={assets.logo_icon} alt="logo" className="mb-4" />
+
+            <p className="mt-3 mb-3 font-semibold">{item.id}</p>
+            <p className="text-sm text-white/70">{item.desc}</p>
+
+            <p className="mt-6 flex-grow">
+              <span className="text-3xl font-medium">${item.price}</span> /{" "}
+              {item.credits} credits
+            </p>
+
+            <motion.button
+              onClick={() => paymentRazorpay(item.id)}
+              className="w-full mt-8 bg-white text-black text-sm rounded-md py-2.5 disabled:bg-white/40 disabled:cursor-not-allowed"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              disabled={loadingPlan === item.id}
             >
-              <img width={40} src={assets.logo_icon} alt="logo" className="mb-4" />
-
-              <p className="mt-3 mb-3 font-semibold">{item.id}</p>
-              <p className="text-sm text-white/70">{item.desc}</p>
-
-              <p className="mt-6 flex-grow">
-                <span className="text-3xl font-medium">${item.price}</span> /{" "}
-                {item.credits} credits
-              </p>
-
-              <motion.button
-                onClick={() => paymentRazorpay(item.id)}
-                className="w-full mt-8 bg-white text-black text-sm rounded-md py-2.5 disabled:bg-white/40 disabled:cursor-not-allowed"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                disabled={loadingPlan === item.id}
-              >
-                {loadingPlan === item.id
-                  ? "Processing..."
-                  : user
-                  ? "Purchase"
-                  : "Get Started"}
-              </motion.button>
-            </motion.div>
-          ))}
-        </div>
+              {loadingPlan === item.id
+                ? "Processing..."
+                : user
+                ? "Purchase"
+                : "Get Started"}
+            </motion.button>
+          </motion.div>
+        ))}
       </div>
     </div>
-  );
+  </div>
+);
+
 }
 
 export default BuyCredit;

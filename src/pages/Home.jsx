@@ -11,11 +11,13 @@ import ReplaceBgToolHeader from "../Cards/ReplaceBgToolHeader";
 import TextToImageToolHeader from "../Cards/TextToImageToolHeader";
 import UncropToolHeader from "../Cards/UncropToolHeader";
 
+
 function Home() {
   const { step } = useContext(AppContext);
 
   return (
     <div>
+   
       {step === 0 && (
         <>
           <Header />

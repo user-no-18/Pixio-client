@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { assets } from "../assets/assets";
 import { AppContext } from "../contexts/AppContext";
-
+import MobileBackArrow from "../components/MobileArrow";
 function Result() {
   const [image, setImage] = useState("sampleimg.png");
   const [isImageLoad, setImageLoad] = useState(false);
@@ -45,7 +45,7 @@ function Result() {
           }
         }
       `}</style>
-      
+      <MobileBackArrow/>
       <form
         onSubmit={onSubmitHandler}
         className="flex flex-col min-h-[90vh] items-center justify-center"

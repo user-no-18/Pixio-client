@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../contexts/AppContext";
+import MobileBackArrow from "../components/MobileArrow";
 
 function ReplaceBG() {
   const [image, setImage] = useState(null);
@@ -49,6 +50,8 @@ function ReplaceBG() {
 
   return (
     <>
+      <MobileBackArrow />
+
       <div className="flex flex-col min-h-[90vh] items-center justify-center p-4">
         <h1 className="text-3xl font-bold mb-8 text-white">
           Replace Background

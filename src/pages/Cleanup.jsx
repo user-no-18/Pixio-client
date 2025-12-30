@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../contexts/AppContext";
+import MobileBackArrow from "../components/MobileArrow";
 
 function Cleanup() {
   const [image, setImage] = useState(null);
@@ -67,10 +68,13 @@ function Cleanup() {
           0% { transform: translateX(-100%); }
           100% { transform: translateX(100%); }
         }
+
       `}</style>
 
-      <div className="flex flex-col min-h-[90vh] items-center justify-center p-4">
-        <h1 className="text-3xl font-bold mb-4 text-white">Cleanup Image</h1>
+      <MobileBackArrow />
+
+      <div className="flex flex-col min-h-[90vh] items-center justify-center p-4 ">
+        <h1 className="text-3xl font-bold mb-4 text-white mt-20">Cleanup Image</h1>
         <p className="text-gray-400 mb-8 text-center max-w-2xl">
           Remove unwanted objects from your images. Upload your image and a mask where white areas indicate what to remove.
         </p>

@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../contexts/AppContext";
+import MobileBackArrow from "../components/MobileArrow";
 
 function UncropImage() {
   const [image, setImage] = useState(null);
@@ -52,7 +53,10 @@ function UncropImage() {
           0% { transform: translateX(-100%); }
           100% { transform: translateX(100%); }
         }
+
       `}</style>
+
+      <MobileBackArrow />
 
       <div className="flex flex-col min-h-[90vh] items-center justify-center p-4">
         <h1 className="text-3xl font-bold mb-8 text-white">Uncrop Image</h1>
