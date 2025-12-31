@@ -52,7 +52,7 @@ function Result() {
       >
         <div className="relative">
           <img
-            src={image}
+            src="image.jpg"
             alt="Generated"
             className="max-w-sm w-full h-auto object-cover rounded-lg shadow-lg"
           />
