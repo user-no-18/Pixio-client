@@ -72,6 +72,34 @@ const Login = () => {
   };
   /* ==================================================================== */
 
+  /* ===================== FIREBASE GOOGLE LOGIN (ORIGINAL CODE) ===================== */
+  const handleGoogleLogin = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const idToken = await result.user.getIdToken();
+
+      const { data } = await axios.post(backendUrl + "/api/user/google-auth", {
+        idToken,
+      });
+
+      if (data.success) {
+        setToken(data.token);
+        setUser(data.user);
+        localStorage.setItem("token", data.token);
+        setShowLogin(false);
+        navigate("/");
+        toast.success("Logged in with Google!");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.error("Google login error:", error);
+      toast.error("Google login failed");
+    }
+  };
+  /* ================================================================================ */
+
   const onsubmitHandler = async (e) => {
     e.preventDefault();
 
@@ -211,6 +239,23 @@ const Login = () => {
               {isLoading ? "Processing..." : state === "Login" ? "Sign In" : "Create Account"}
             </button>
 
+            
+            <div className="my-4 flex items-center gap-2">
+              <hr className="flex-1 border-white/20" />
+              <span className="text-sm text-white/40">OR</span>
+              <hr className="flex-1 border-white/20" />
+            </div>
+
+            <button
+              type="button"
+              onClick={handleGoogleLogin}
+              className="w-full py-3 bg-white/5 border border-white/20 text-white rounded-lg font-medium hover:bg-white/10 transition flex items-center justify-center gap-2"
+            >
+              <img src={assets.google_icon} alt="Google" className="w-5 h-5" />
+              Continue with Google
+            </button>
+            {/* =============================================================================== */}
+
             {/* Toggle State */}
             <p className="mt-6 text-center text-sm text-white/60">
               {state === "Login" ? "Don't have an account? " : "Already have an account? "}
@@ -284,7 +329,7 @@ const Login = () => {
             </button>
           </>
         )}
-       
+        
       </form>
     </div>
   );
