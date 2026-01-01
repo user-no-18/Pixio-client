@@ -91,7 +91,7 @@ const navigate = useNavigate()
             {[
               { label: "Tools Available", val: "7" },
               { label: "File Support", val: "30MB" },
-              { label: "Response Time", val: "< 2s" }
+              { label: "Response Time", val: "< 20s" }
             ].map((stat, i) => (
               <div key={i} className="flex flex-col items-center gap-3 text-center">
                 <span className="text-5xl font-black text-white/90 tracking-tighter italic">{stat.val}</span>

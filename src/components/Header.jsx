@@ -73,7 +73,7 @@ const AIMarketplaceHome = () => {
                 variants={fadeUp}
                 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight"
               >
-                AI-Powered <br /> Marketplace
+                AI-Powered <br /> Image Platform
               </motion.h1>
 
               <motion.p
@@ -125,11 +125,11 @@ const AIMarketplaceHome = () => {
             >
            <iframe
   className="w-full h-full pointer-events-none"
-  src="https://www.youtube.com/embed/6ktXlBDf4hQ?start=9&autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&playsinline=1&disablekb=1&fs=0&playlist=6ktXlBDf4hQ"
+  src="https://www.youtube.com/embed/6ktXlBDf4hQ?autoplay=1&mute=1&loop=1&controls=0&modestbranding=1&rel=0&playsinline=1&disablekb=1&fs=0&playlist=6ktXlBDf4hQ&t=9s"
   title="Cleanup Demo"
-  frameBorder="0"
   allow="autoplay; encrypted-media"
 />
+
 
             </motion.div>
 
