@@ -19,6 +19,7 @@ import {
   Clock
 } from 'lucide-react';
 import { AppContext } from '../contexts/AppContext';
+import MobileBackArrow from "../components/MobileArrow";
 
 const Dashboard = () => {
   const { backendUrl, token } = useContext(AppContext);
@@ -159,6 +160,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-black text-zinc-100 selection:bg-zinc-800 selection:text-white pt-16 font-sans">
+      <MobileBackArrow  />
       {/* Background Gradient Spot */}
       <div className="fixed top-0 left-0 w-full h-96 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-900/60 via-black to-black pointer-events-none z-0" />
 

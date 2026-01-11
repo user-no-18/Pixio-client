@@ -20,6 +20,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import MobileBackArrow from "./MobileArrow";
 
 const PixioDocumentation = () => {
   const [activeSection, setActiveSection] = useState("overview");
@@ -271,6 +272,7 @@ const PixioDocumentation = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
+      <MobileBackArrow />
       {/* Mobile Header with Hamburger 
     Modified: top-16 ensures it stays below the global Navbar 
   */}

@@ -8,7 +8,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
-
+  
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -65,7 +65,6 @@ const Navbar = () => {
               </p>
             </button>
 
-            {/* User Greeting (First Name Only) */}
             <p className="hidden sm:block text-sm font-medium tracking-wide">
               <span
                 className="bg-gradient-to-r from-[#FFD700] via-[#FFB800] to-[#FFF2A8]
@@ -84,9 +83,8 @@ const Navbar = () => {
               </span>
             </p>
 
-            {/* Profile Dropdown */}
             <div className="relative group" ref={dropdownRef}>
-              <div 
+              <div
                 onClick={() => setShowDropdown(!showDropdown)}
                 className="cursor-pointer"
               >
@@ -111,24 +109,45 @@ const Navbar = () => {
                 ) : (
                   <img src={assets.user_icon} className="w-9 h-9" />
                 )}
-
-                
-                
               </div>
 
-            <div
-  className={`absolute ${
-    showDropdown ? "block" : "hidden"
-  } top-0 right-0 z-10 text-black rounded pt-12`}
->
-  <ul
-    onClick={logout}
-    className="list-none m-0 p-2 bg-white rounded-md text-sm cursor-pointer hover:bg-gray-100 transition-colors"
-  >
-    Logout
-  </ul>
-</div>
-
+             <div
+                className={`absolute ${
+                  showDropdown ? "block" : "hidden"
+                } top-0 right-0 z-10 text-white rounded pt-12`}
+              >
+                <ul className="bg-black border border-white/20 rounded-md overflow-hidden shadow-xl min-w-[140px]">
+                  {/* Dashboard - Mobile only */}
+                  <li
+                    onClick={() => {
+                      navigate("/dashboard");
+                      setShowDropdown(false);
+                    }}
+                    className="sm:hidden list-none m-0 px-4 py-2.5 text-sm cursor-pointer hover:bg-white/10 transition-colors border-b border-white/10"
+                  >
+                    Dashboard
+                  </li>
+                  
+                  {/* Docs - Mobile only */}
+                  <li
+                    onClick={() => {
+                      navigate("/docs");
+                      setShowDropdown(false);
+                    }}
+                    className="sm:hidden list-none m-0 px-4 py-2.5 text-sm cursor-pointer hover:bg-white/10 transition-colors border-b border-white/10"
+                  >
+                    Docs
+                  </li>
+                  
+                  {/* Logout - Always visible */}
+                  <li
+                    onClick={logout}
+                    className="list-none m-0 px-4 py-2.5 text-sm cursor-pointer hover:bg-white/10 transition-colors"
+                  >
+                    Logout
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         ) : (

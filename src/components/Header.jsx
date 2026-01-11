@@ -88,10 +88,10 @@ const AIMarketplaceHome = () => {
                 {user ? (
                   <>
                     <button
-                      onClick={() => navigate("/docs")}
+                      onClick={() => navigate("/dashboard")}
                       className="px-6 py-3 bg-white text-black rounded font-semibold"
                     >
-                      Read Docs
+                      Dashboard
                     </button>
                     <button
                       onClick={() => navigate("/buy")}
