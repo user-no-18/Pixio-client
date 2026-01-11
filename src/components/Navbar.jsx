@@ -43,6 +43,12 @@ const Navbar = () => {
             >
               Docs
             </button>
+            <button
+              onClick={() => navigate("/dashboard")}
+              className="hidden sm:flex items-center gap-2 px-4 py-2 text-white hover:bg-white/5 rounded transition-colors text-sm font-medium"
+            >
+              Dashboard
+            </button>
 
             {/* Credit Display */}
             <button

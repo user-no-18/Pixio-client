@@ -17,7 +17,7 @@ import UncropImage from './pages/Uncrop-obj'
 import ReplaceBG from './pages/Replace-bg'
 import Cleanup from './pages/Cleanup'
 import DocumentationSection from './components/Docs'
-
+import Dashboard from './pages/Dashboard'
 
 
 
@@ -44,6 +44,7 @@ const App = () => {
         <Route path="/cleanup" element={<Cleanup />} />
         <Route path="/buy" element={<BuyCredit />} />
         <Route path="/docs" element={<DocumentationSection />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
 
       <Footer />
