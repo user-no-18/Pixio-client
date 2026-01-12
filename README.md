@@ -1,18 +1,28 @@
 # Pixio - AI-Powered Image Processing Platform
 
-<div align="center">
-
-
-**Transform your images with cutting-edge AI technology**
-
-[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://image-generator-ai-client-mtws.vercel.app/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![React](https://img.shields.io/badge/React-18.x-61DAFB?logo=react)](https://reactjs.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-18.x-339933?logo=node.js)](https://nodejs.org/)
-
-
-
+<div align="center" style="margin-bottom: 20px;">
+  <div style="border: 2px solid #4CAF50; border-radius: 10px; padding: 10px 20px; background-color: #f0fff0; display: inline-block;">
+    <strong style="color:#388E3C;">⚡ Note:</strong> Server repository available here → 
+    <a href="https://github.com/user-no-18/Pixio-server" style="color:#1976D2; font-weight:bold;">Pixio Server</a>
+  </div>
 </div>
+
+<div align="center">
+  <p><strong>Transform your images with cutting-edge AI technology</strong></p>
+  <a href="https://image-generator-ai-client-mtws.vercel.app/">
+    <img src="https://img.shields.io/badge/demo-live-brightgreen" alt="Live Demo"/>
+  </a>
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"/>
+  </a>
+  <a href="https://reactjs.org/">
+    <img src="https://img.shields.io/badge/React-18.x-61DAFB?logo=react" alt="React"/>
+  </a>
+  <a href="https://nodejs.org/">
+    <img src="https://img.shields.io/badge/Node.js-18.x-339933?logo=node.js" alt="Node.js"/>
+  </a>
+</div>
+
 
 ---
 
